@@ -171,6 +171,14 @@
 
     socket.on('data', function (data) {
       console.log(data);
+      if (!data.canconnected) {
+        if (!faults.includes('CAN Disconnected')) {
+          faults.push('CAN Disconnected');
+        }
+      } else {
+        faults = faults.filter(fault => fault !== 'CAN Disconnected');
+      }
+
       if (data.bot) {
         bot_elm.classList.remove('text-bg-danger');
         bot_elm.classList.add('text-bg-success');
